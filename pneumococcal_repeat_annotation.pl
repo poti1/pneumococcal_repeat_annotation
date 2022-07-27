@@ -1,25 +1,25 @@
 #! /software/bin/perl -w
+
+use v5.26;
 use strict;
 use warnings;
 use Bio::SeqIO;
 use Bio::SeqI;
 
-my $n = 0;
-my %start;
-my %end;
+my %startHash;
+my %endHash;
 my %type;
 my %score;
 my %strand;
 my $r = 0;
-my %repeats;
 my %BOX;
-my $boxstart;
-my $boxend;
+my $boxstartScalar;
+my $boxEndScalar;
 my $boxnum = 0;
 my $boxstrand;
-my %boxstart;
+my %boxStartHash;
 my %boxstrand;
-my %boxend;
+my %boxEndHash;
 my $A_start;
 my $A_end;
 my $A_score = 0;
@@ -33,8 +33,8 @@ my $B_hitstrand;
 my $B_hitstart;
 my $B_hitend;
 my $in_box = 0;
-my $start;
-my $end;
+my $startScalar;
+my $endScalar;
 my $hitscore = 0;
 my $hitstart = 0;
 my $hitend = 0;
@@ -81,14 +81,14 @@ foreach my $genome (@ARGV) {
 			chomp;
 			if (substr($_,0,2) =~ /\d\d/) {
 				my @array = split(/\s+/,$_);
-				my @start = split(/:/,$array[2]);
+				my @startArray = split(/:/,$array[2]);
 				my @finish = split(/:/,$array[3]);
 				if ($array[0] > $cutoffs{$repeat}){
-					$start{$r} = $start[1];
-					$end{$r} = $finish[1];
+					$startHash{$r} = $startArray[1];
+					$endHash{$r} = $finish[1];
 					$type{$r} = $repeat;
 					$score{$r} = $array[0];
-					if ($end{$r} > $start{$r}) {
+					if ($endHash{$r} > $startHash{$r}) {
 						$strand{$r} = 1;	
 					} else {
 						$strand{$r} = -1;
@@ -99,48 +99,48 @@ foreach my $genome (@ARGV) {
 		}
 	}
 	print STDERR "Identified repeat units in sequence $genome\n";
-	foreach my $repeata (sort keys %start) { 						# identify composite BOX elements from box modules
+	foreach my $repeata (sort keys %startHash) { 						# identify composite BOX elements from box modules
 		if ($type{$repeata} =~ /boxA/) {
 			$boxstrand = $strand{$repeata};
-			$boxstart = $start{$repeata};
+			$boxstartScalar = $startHash{$repeata};
 			@{$BOX{$boxnum}} = "$repeata";
 			if ($boxstrand == 1) {
-				$boxend = $end{$repeata}+5;					# five base leeway for finding the adjacent boxB element
-				foreach my $repeatb (sort {$start{$a} <=> $start{$b}} keys %start) {
-					if ($type{$repeatb} =~ /boxB/ && ($start{$repeatb} <= $boxend && $start{$repeatb} >= $boxstart) && $strand{$repeatb} == $boxstrand) {
-						$boxend = $end{$repeatb}+1;
+				$boxEndScalar = $endHash{$repeata}+5;					# five base leeway for finding the adjacent boxB element
+				foreach my $repeatb (sort {$startHash{$a} <=> $startHash{$b}} keys %startHash) {
+					if ($type{$repeatb} =~ /boxB/ && ($startHash{$repeatb} <= $boxEndScalar && $startHash{$repeatb} >= $boxstartScalar) && $strand{$repeatb} == $boxstrand) {
+						$boxEndScalar = $endHash{$repeatb}+1;
 						push(@{$BOX{$boxnum}},$repeatb);
 					}
 				}
-				foreach my $repeatc (sort {$start{$a} <=> $start{$b}} keys %start) {
-					if ($type{$repeatc} =~ /boxC/ && ($start{$repeatc} <= $boxend && $start{$repeatc} >= $boxstart) && $strand{$repeatc} == $boxstrand) {
-						$boxend = $end{$repeatc}+1;
+				foreach my $repeatc (sort {$startHash{$a} <=> $startHash{$b}} keys %startHash) {
+					if ($type{$repeatc} =~ /boxC/ && ($startHash{$repeatc} <= $boxEndScalar && $startHash{$repeatc} >= $boxstartScalar) && $strand{$repeatc} == $boxstrand) {
+						$boxEndScalar = $endHash{$repeatc}+1;
 						push(@{$BOX{$boxnum}},$repeatc);
 					}
 				}
 				if ($#{$BOX{$boxnum}} > 0) {
-					$boxstart{$boxnum} = $boxstart;
-					$boxend{$boxnum} = $boxend-1;
+					$boxStartHash{$boxnum} = $boxstartScalar;
+					$boxEndHash{$boxnum} = $boxEndScalar-1;
 					$boxstrand{$boxnum} = $boxstrand;
 					$boxnum++;
 				}
 			} else {
-				$boxend = $end{$repeata}-5;
-				foreach my $repeatb (sort {$start{$b} <=> $start{$a}} keys %start) {
-					if ($type{$repeatb} =~ /boxB/ && ($start{$repeatb} >= $boxend && $start{$repeatb} <= $boxstart) && $strand{$repeatb} == $boxstrand) {
-						$boxend = $end{$repeatb}-1;
+				$boxEndScalar = $endHash{$repeata}-5;
+				foreach my $repeatb (sort {$startHash{$b} <=> $startHash{$a}} keys %startHash) {
+					if ($type{$repeatb} =~ /boxB/ && ($startHash{$repeatb} >= $boxEndScalar && $startHash{$repeatb} <= $boxstartScalar) && $strand{$repeatb} == $boxstrand) {
+						$boxEndScalar = $endHash{$repeatb}-1;
 						push(@{$BOX{$boxnum}},$repeatb);
 					}
 				}
-				foreach my $repeatc (sort {$start{$b} <=> $start{$a}} keys %start) {
-					if ($type{$repeatc} =~ /boxC/ && ($start{$repeatc} >= $boxend && $start{$repeatc} <= $boxstart) && $strand{$repeatc} == $boxstrand) {
-						$boxend = $end{$repeatc}-1;
+				foreach my $repeatc (sort {$startHash{$b} <=> $startHash{$a}} keys %startHash) {
+					if ($type{$repeatc} =~ /boxC/ && ($startHash{$repeatc} >= $boxEndScalar && $startHash{$repeatc} <= $boxstartScalar) && $strand{$repeatc} == $boxstrand) {
+						$boxEndScalar = $endHash{$repeatc}-1;
 						push(@{$BOX{$boxnum}},$repeatc);
 					}
 				}
 				if ($#{$BOX{$boxnum}} > 0) {
-					$boxstart{$boxnum} = $boxstart;
-					$boxend{$boxnum} = $boxend+1;
+					$boxStartHash{$boxnum} = $boxstartScalar;
+					$boxEndHash{$boxnum} = $boxEndScalar+1;
 					$boxstrand{$boxnum} = $boxstrand;
 					$boxnum++;
 				}
@@ -148,7 +148,7 @@ foreach my $genome (@ARGV) {
 		}
 	}
 	$in_box = 0;
-	foreach my $repeatc (sort keys %start) {						# find BC BOX elements with no starting boxA module
+	foreach my $repeatc (sort keys %startHash) {						# find BC BOX elements with no starting boxA module
 		if ($type{$repeatc} =~ /boxC/) {
 			foreach $boxnum (sort keys %BOX) {
 				if (grep(/$repeatc/,@{$BOX{$boxnum}})) {
@@ -156,34 +156,34 @@ foreach my $genome (@ARGV) {
 				}
 			}
 			if ($in_box == 0) {
-				$boxend = $end{$repeatc};
+				$boxEndScalar = $endHash{$repeatc};
 				$boxstrand = $strand{$repeatc};
 				@{$BOX{$boxnum}} = "$repeatc";
 				if ($boxstrand == -1) {
-					$boxstart = $start{$repeatc}+1;
-					foreach my $repeatb (sort {$start{$a} <=> $start{$b}} keys %start) {
-						if ($type{$repeatb} =~ /boxB/ && ($end{$repeatb} <= $boxstart && $start{$repeatb} >= $boxstart) && $strand{$repeatb} == $boxstrand) {
-							$boxstart = $start{$repeatb}+1;
+					$boxstartScalar = $startHash{$repeatc}+1;
+					foreach my $repeatb (sort {$startHash{$a} <=> $startHash{$b}} keys %startHash) {
+						if ($type{$repeatb} =~ /boxB/ && ($endHash{$repeatb} <= $boxstartScalar && $startHash{$repeatb} >= $boxstartScalar) && $strand{$repeatb} == $boxstrand) {
+							$boxstartScalar = $startHash{$repeatb}+1;
 							push(@{$BOX{$boxnum}},$repeatb);
 						}	
 					}
 					if ($#{$BOX{$boxnum}} > 0) {
-						$boxstart{$boxnum} = $boxstart-1;
-						$boxend{$boxnum} = $boxend;
+						$boxStartHash{$boxnum} = $boxstartScalar-1;
+						$boxEndHash{$boxnum} = $boxEndScalar;
 						$boxstrand{$boxnum} = $boxstrand;
 						$boxnum++;
 					}
 				} else {
-					$boxstart = $start{$repeatc}-1;
-					foreach my $repeatb (sort {$start{$b} <=> $start{$a}} keys %start) {
-						if ($type{$repeatb} =~ /boxB/ && ($end{$repeatb} >= $boxstart && $start{$repeatb} <= $boxstart) && $strand{$repeatb} == $boxstrand) {
-							$boxstart = $start{$repeatb}-1;
+					$boxstartScalar = $startHash{$repeatc}-1;
+					foreach my $repeatb (sort {$startHash{$b} <=> $startHash{$a}} keys %startHash) {
+						if ($type{$repeatb} =~ /boxB/ && ($endHash{$repeatb} >= $boxstartScalar && $startHash{$repeatb} <= $boxstartScalar) && $strand{$repeatb} == $boxstrand) {
+							$boxstartScalar = $startHash{$repeatb}-1;
 							push(@{$BOX{$boxnum}},$repeatb);
 						}
 					}
 					if ($#{$BOX{$boxnum}} > 0) {
-						$boxstart{$boxnum} = $boxstart+1;
-						$boxend{$boxnum} = $boxend;
+						$boxStartHash{$boxnum} = $boxstartScalar+1;
+						$boxEndHash{$boxnum} = $boxEndScalar;
 						$boxstrand{$boxnum} = $boxstrand;
 						$boxnum++;
 					}
@@ -197,10 +197,10 @@ foreach my $genome (@ARGV) {
 
 	my %overlaps;
 	
-	if (defined $start) {
-		foreach my $repeata (sort keys %start) {						# identify overlapping repeat elements, except BOX modules
-			foreach my $repeatb (sort keys %start) {
-				if (($start{$repeatb} <= $start{$repeata} && $end{$repeatb} >= $start{$repeata}) || ($start{$repeatb} <= $end{$repeata} && $end{$repeatb} >= $end{$repeata})) {
+	if (defined $startScalar) {
+		foreach my $repeata (sort keys %startHash) {						# identify overlapping repeat elements, except BOX modules
+			foreach my $repeatb (sort keys %startHash) {
+				if (($startHash{$repeatb} <= $startHash{$repeata} && $endHash{$repeatb} >= $startHash{$repeata}) || ($startHash{$repeatb} <= $endHash{$repeata} && $endHash{$repeatb} >= $endHash{$repeata})) {
 					unless (($type{$repeata} =~ /box/ && $type{$repeatb} =~ /box/) || ($repeata == $repeatb)) {
 						my @unsorted = ($repeata,$repeatb);
 						my @sorted = sort(@unsorted);
@@ -218,12 +218,12 @@ foreach my $genome (@ARGV) {
 	
 	foreach my $repeata (sort keys %overlaps) {						# rescan regions around overlapping repeats to look for disruptions
 		boundaries($repeata);
-		$A_start = $start;
-		$A_end = $end;
-		my $upper_bound = $end+251;
-		my $lower_bound = $start-251;
-		my $lower_seq = $sequence->subseq($lower_bound,$start-1);
-		my $upper_seq = $sequence->subseq($end+1,$upper_bound);
+		$A_start = $startScalar;
+		$A_end = $endScalar;
+		my $upper_bound = $endScalar+251;
+		my $lower_bound = $startScalar-251;
+		my $lower_seq = $sequence->subseq($lower_bound,$startScalar-1);
+		my $upper_seq = $sequence->subseq($endScalar+1,$upper_bound);
 		my $total_seq = "$lower_seq"."$upper_seq";
 		print_fasta("first.seq",$total_seq);
 		system("/home/sreeram/hmmer-1.8.4/hmmls -c $hmms{$type{$overlaps{$repeata}}} first.seq > first.out");
@@ -233,12 +233,12 @@ foreach my $genome (@ARGV) {
 		$A_hitstart = $hitstart;
 		$A_hitend = $hitend;
 		boundaries($overlaps{$repeata});
-		$B_start = $start;
-		$B_end = $end;
-		$upper_bound = $end+251;
-		$lower_bound = $start-251;
-		$lower_seq = $sequence->subseq($lower_bound,$start-1);
-		$upper_seq = $sequence->subseq($end+1,$upper_bound);
+		$B_start = $startScalar;
+		$B_end = $endScalar;
+		$upper_bound = $endScalar+251;
+		$lower_bound = $startScalar-251;
+		$lower_seq = $sequence->subseq($lower_bound,$startScalar-1);
+		$upper_seq = $sequence->subseq($endScalar+1,$upper_bound);
 		$total_seq = "$lower_seq"."$upper_seq";
 		print_fasta("second.seq",$total_seq);
 		system("/home/sreeram/hmmer-1.8.4/hmmls -c $hmms{$type{$repeata}} second.seq > second.out");	
@@ -252,7 +252,7 @@ foreach my $genome (@ARGV) {
 		if ($A_inc >= 0 || $B_inc >= 0) {									# identify disruption events
 			my $firstpoint; my $secondpoint; my $thirdpoint; my $fourthpoint;
 			if ($A_inc > $B_inc) {
-				$start{$overlaps{$repeata}} = "BROKEN";
+				$startHash{$overlaps{$repeata}} = "BROKEN";
 				if ($A_hitstrand == 1) {
 					$secondpoint = $A_start-1;
 					$thirdpoint = $A_end+1;
@@ -271,7 +271,7 @@ foreach my $genome (@ARGV) {
 					$brokenscore{$overlaps{$repeata}} = $A_score;
 				}
 			} elsif ($B_inc > $A_inc) {
-				$start{$repeata} = "BROKEN";
+				$startHash{$repeata} = "BROKEN";
 				if ($B_hitstrand == 1) {
 					$secondpoint = $B_start-1;
 					$thirdpoint = $B_end+1;
@@ -299,8 +299,8 @@ foreach my $genome (@ARGV) {
 	open OUT, "> $genome.repeats.tab" or die print STDERR "Cannot open output file\n";
 	print STDERR "Printing output files\n";
 	
-	foreach my $repeat (sort keys %start) {
-		if ($start{$repeat} eq "BROKEN") {
+	foreach my $repeat (sort keys %startHash) {
+		if ($startHash{$repeat} eq "BROKEN") {
 			if ($strand{$repeat} == 1) {
 				print OUT "FT   repeat_unit     order(${$brokencoords{$repeat}}[0]..${$brokencoords{$repeat}}[1],${$brokencoords{$repeat}}[2]..${$brokencoords{$repeat}}[3])\n";
 			} elsif ($strand{$repeat} == -1) {
@@ -312,9 +312,9 @@ foreach my $genome (@ARGV) {
 			print OUT "FT                   /note=Initial match of score $score{$repeat} to model $type{$repeat}; realignment score of $brokenscore{$repeat}\n";
 		} else {
 			if ($strand{$repeat} == 1) {
-				print OUT "FT   repeat_unit     $start{$repeat}..$end{$repeat}\n";
+				print OUT "FT   repeat_unit     $startHash{$repeat}..$endHash{$repeat}\n";
 			} elsif ($strand{$repeat} == -1) {
-				print OUT "FT   repeat_unit     complement($start{$repeat}..$end{$repeat})\n";
+				print OUT "FT   repeat_unit     complement($startHash{$repeat}..$endHash{$repeat})\n";
 			}
 			print OUT "FT                   /colour=2\n";
 			print OUT "FT                   /label=$type{$repeat}\n";
@@ -323,25 +323,24 @@ foreach my $genome (@ARGV) {
 	}
 	foreach my $boxnum (sort keys %BOX) {
 		if ($boxstrand{$boxnum} == 1) {
-			print OUT "FT   repeat_unit     $boxstart{$boxnum}..$boxend{$boxnum}\n";
+			print OUT "FT   repeat_unit     $boxStartHash{$boxnum}..$boxEndHash{$boxnum}\n";
 		} else {
-			print OUT "FT   repeat_unit     complement($boxstart{$boxnum}..$boxend{$boxnum})\n";
+			print OUT "FT   repeat_unit     complement($boxStartHash{$boxnum}..$boxEndHash{$boxnum})\n";
 		}
 		print OUT "FT                   /colour=4\n";
 		print OUT "FT                   /note=Composite BOX element\n";
 		print OUT "FT                   /label=BOX\n";
 	}
 
-	undef(%start);
-	undef(%end);
+	undef(%startHash);
+	undef(%endHash);
 	undef(%type);
 	undef(%score);
 	undef(%strand);
-	undef(%repeats);
 	undef(%BOX);
-	undef(%boxstart);
+	undef(%boxStartHash);
 	undef(%boxstrand);
-	undef(%boxend);
+	undef(%boxEndHash);
 	undef(%brokencoords);
 	undef(%brokenscore);
 	undef(%brokendisrupt);	
@@ -358,23 +357,23 @@ sub boundaries {											# subroutine for identifying repeat boundaries, esp B
 		foreach $boxnum (sort keys %BOX) {
 			foreach my $module (@{$BOX{$boxnum}}) {
 				if ($module == $rep) {
-					my @unsorted = ("$boxstart{$boxnum}","$boxend{$boxnum}");
+					my @unsorted = ("$boxStartHash{$boxnum}","$boxEndHash{$boxnum}");
 					my @sorted = sort(@unsorted);
-					$start = $sorted[0];
-					$end = $sorted[1];
+					$startScalar = $sorted[0];
+					$endScalar = $sorted[1];
 					$in_box = 1;
 				}
 			}
 		}
 	}
 	if ($in_box == 0) {
-		my @unsorted = ("$start{$rep}","$end{$rep}");
+		my @unsorted = ("$startHash{$rep}","$endHash{$rep}");
 		my @sorted = sort(@unsorted);
-		$start = $sorted[0];
-		$end = $sorted[1];
+		$startScalar = $sorted[0];
+		$endScalar = $sorted[1];
 	}
 	$in_box = 0;
-	return($start,$end);
+	return($startScalar,$endScalar);
 }
 
 sub print_fasta {											# subroutine for printing sequence in a suitable format for /home/sreeram/hmmer-1.8.4/hmmls
