@@ -1,9 +1,17 @@
 #!/bin/env perl
+
+use v5.26;
 use strict;
-use warnings;
+use warnings FATAL => "all";
 use Bio::SeqIO;
 use Bio::SeqI;
 
+
+##############################################################################
+#                                Main
+##############################################################################
+
+my $DEBUG = 0;
 my $n = 0;
 my %start;
 my %end;
@@ -43,7 +51,7 @@ my %brokencoords;
 my %brokenscore;
 my %brokendisrupt;
 my $hmmlsearch_command = "/home/sreeram/hmmer-1.8.4/hmmls -c -t";
-$hmmlsearch_command = "hmmsearch";
+$hmmlsearch_command = "hmmls -c -t";
 
 my @repeats =
   ( "boxA", "boxB", "boxC", "RUP", "SPRITE" );    # repeats being analysed
@@ -69,43 +77,14 @@ my %input_files = (
     "SPRITE" => "SPRITE.rep",
 );
 
-foreach my $seq ( @ARGV ) {
-    foreach my $repeat ( @repeats ) {
-        print STDERR "Searching sequence $seq for repeat $repeat...";
-        system(
-"$hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}"
-        );
-        print STDERR "done\n";
-    }
-}
+# run_sequences();
 
 foreach my $genome ( @ARGV ) {
-    foreach my $repeat ( sort keys %input_files )
-    {    # parse information from HMM output
-        open IN, "$genome.$input_files{$repeat}"
-          or die print "Cannot open input file\n";
-        foreach ( <IN> ) {
-            chomp;
-            if ( substr( $_, 0, 2 ) =~ /\d\d/ ) {
-                my @array  = split( /\s+/, $_ );
-                my @start  = split( /:/,   $array[2] );
-                my @finish = split( /:/,   $array[3] );
-                if ( $array[0] > $cutoffs{$repeat} ) {
-                    $start{$r} = $start[1];
-                    $end{$r}   = $finish[1];
-                    $type{$r}  = $repeat;
-                    $score{$r} = $array[0];
-                    if ( $end{$r} > $start{$r} ) {
-                        $strand{$r} = 1;
-                    }
-                    else {
-                        $strand{$r} = -1;
-                    }
-                }
-                $r++;
-            }
-        }
-    }
+
+    build_hmm_structure( $genome );
+
+    next;
+
     print STDERR "Identified repeat units in sequence $genome\n";
     foreach my $repeata ( sort keys %start )
     {    # identify composite BOX elements from box modules
@@ -479,6 +458,81 @@ foreach my $genome ( @ARGV ) {
 close OUT;
 system( "rm first.out first.seq second.out second.seq *.rep;" );
 print STDERR "Done\n";
+
+
+##############################################################################
+#                          Functions
+##############################################################################
+
+sub run_sequences {
+    foreach my $seq ( @ARGV ) {
+        foreach my $repeat ( @repeats ) {
+            print STDERR "Searching sequence $seq for repeat $repeat...";
+          # say "Running: $hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}";
+    
+            system(
+    "$hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}"
+            );
+            print STDERR "done\n";
+        }
+    }
+}
+
+# parse information from HMM output
+sub build_hmm_structure {
+    my ($genome) = @_;
+
+    my $is_score = qr{ ^ \s* ( [\d.]+ ) }x;
+    my $is_start = qr{ \b f \b \s* : \s* ( \d+ ) }x;
+    my $is_end   = qr{ \b t \b \s* : \s* ( \d+ ) }x;
+
+    foreach my $repeat ( sort keys %input_files ) {
+        my $file = "$genome.$input_files{$repeat}";
+        open my $fh, "<", $file or die print "Cannot open input file\n";
+
+        foreach ( <$fh> ) {
+            chomp;
+            say "\nline: [$_]" if $DEBUG;
+
+            my ($score) = /$is_score/;
+            next if not $score;
+            
+            my ($start) = /$is_start/;
+            if(!$start){
+                print STDERR "Missing start value for: $genome line $.\n";
+                next;
+            }
+
+            my ($end)   = /$is_end/;
+            if(!$end){
+                print STDERR "Missing end value for: $genome line $.\n";
+                next;
+            }
+
+            if ( $score > $cutoffs{$repeat} ) {
+                $start{$r}  = $start;
+                $end{$r}    = $end;
+                $type{$r}   = $repeat;
+                $score{$r}  = $score;
+                $strand{$r} = ($end > $start) ? 1 : -1;
+
+              # say dumper {
+              #     _00_r      => $r,
+              #     _21_start  => $start{$r},
+              #   # _22_startH => \%start,
+              #     _24_end    => $end{$r},
+              #   # _25_endH   => \%end,
+              #     _31_type   => $type{$r},
+              #     _32_score  => $score{$r},
+              #     _33_strand => $strand{$r},
+              # } if $DEBUG;
+            }
+            $r++;
+        }
+
+        close $fh;
+    }
+}
 
 sub boundaries
 {    # subroutine for identifying repeat boundaries, esp BOX elements
