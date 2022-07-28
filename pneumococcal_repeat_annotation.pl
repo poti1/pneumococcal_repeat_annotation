@@ -95,13 +95,11 @@ my %input_files = (
     "SPRITE" => "SPRITE.rep",
 );
 
-run_sequences();
+run_sequences() if not $DEBUG;
 
 foreach my $genome ( @ARGV ) {
 
     build_hmm_structure( $genome );
-
-    next;
 
     print STDERR "Identified repeat units in sequence $genome\n";
     foreach my $repeata ( sort keys %start )
@@ -294,8 +292,10 @@ foreach my $genome ( @ARGV ) {
     my $fasta    = Bio::SeqIO->new( -file => $genome, -format => "fasta" );
     my $sequence = $fasta->next_seq;
 
+    say "About to process overlaps";
     foreach my $repeata ( sort keys %overlaps )
     {    # rescan regions around overlapping repeats to look for disruptions
+
         boundaries( $repeata );
         $A_start = $start;
         $A_end   = $end;
@@ -480,7 +480,7 @@ foreach my $genome ( @ARGV ) {
 close OUT;
 
 # cleanup();  # TODO: put cleanup back.
-print STDERR "Done\n";
+print STDERR "All Done\n";
 
 
 ##############################################################################
