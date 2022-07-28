@@ -1,4 +1,4 @@
-#! /software/bin/perl -w
+#!/bin/env perl
 use strict;
 use warnings;
 use Bio::SeqIO;
@@ -42,6 +42,8 @@ my $hitstrand = 0;
 my %brokencoords;
 my %brokenscore;
 my %brokendisrupt;
+my $hmmlsearch_command = "/home/sreeram/hmmer-1.8.4/hmmls -c -t";
+$hmmlsearch_command = "hmmsearch";
 
 my @repeats = ("boxA","boxB","boxC","RUP","SPRITE");				# repeats being analysed
 my %cutoffs = (									# cutoff scores for HMM analysis
@@ -69,7 +71,7 @@ my %input_files = (
 foreach my $seq (@ARGV) {
 	foreach my $repeat (@repeats) {
 		print STDERR "Searching sequence $seq for repeat $repeat...";
-		system("/home/sreeram/hmmer-1.8.4/hmmls -c -t $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}");
+		system("$hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}");
 		print STDERR "done\n";
 	}
 }
@@ -226,7 +228,7 @@ foreach my $genome (@ARGV) {
 		my $upper_seq = $sequence->subseq($end+1,$upper_bound);
 		my $total_seq = "$lower_seq"."$upper_seq";
 		print_fasta("first.seq",$total_seq);
-		system("/home/sreeram/hmmer-1.8.4/hmmls -c $hmms{$type{$overlaps{$repeata}}} first.seq > first.out");
+		system("$hmmlsearch_command $hmms{$type{$overlaps{$repeata}}} first.seq > first.out");
 		hmm_results("first.out");
 		$A_score = $hitscore;
 		$A_hitstrand = $hitstrand;
@@ -241,7 +243,7 @@ foreach my $genome (@ARGV) {
 		$upper_seq = $sequence->subseq($end+1,$upper_bound);
 		$total_seq = "$lower_seq"."$upper_seq";
 		print_fasta("second.seq",$total_seq);
-		system("/home/sreeram/hmmer-1.8.4/hmmls -c $hmms{$type{$repeata}} second.seq > second.out");	
+		system("$hmmlsearch_command $hmms{$type{$repeata}} second.seq > second.out");	
 		hmm_results("second.out");
 		$B_score = $hitscore;
 		$B_hitstrand = $hitstrand;
@@ -308,7 +310,7 @@ foreach my $genome (@ARGV) {
 			}
 			print OUT "FT                   /colour=2\n";
 			print OUT "FT                   /label=$type{$repeat}\n";
-			print OUT "FT                   /note=Detected using HMMER /home/sreeram/hmmer-1.8.4/hmmls; appears to have been disrupted through $brokendisrupt{$repeat} insertion\n";
+			print OUT "FT                   /note=Detected using HMMER $hmmlsearch_command; appears to have been disrupted through $brokendisrupt{$repeat} insertion\n";
 			print OUT "FT                   /note=Initial match of score $score{$repeat} to model $type{$repeat}; realignment score of $brokenscore{$repeat}\n";
 		} else {
 			if ($strand{$repeat} == 1) {
@@ -318,7 +320,7 @@ foreach my $genome (@ARGV) {
 			}
 			print OUT "FT                   /colour=2\n";
 			print OUT "FT                   /label=$type{$repeat}\n";
-			print OUT "FT                   /note=Detected using HMMER /home/sreeram/hmmer-1.8.4/hmmls; match of score $score{$repeat} to model $type{$repeat}\n";
+			print OUT "FT                   /note=Detected using HMMER $hmmlsearch_command; match of score $score{$repeat} to model $type{$repeat}\n";
 		}
 	}
 	foreach my $boxnum (sort keys %BOX) {
