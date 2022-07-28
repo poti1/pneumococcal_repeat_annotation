@@ -1,8 +1,15 @@
-Failed to parse command line: No such option "-t".
-Usage: hmmsearch [options] <hmmfile> <seqdb>
+hmmls - search long sequences for local matches to a hidden Markov model
+     version 1.8.4, July 1997
 
-where most common options are:
-  -h : show brief help on version and usage
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+HMM file:                   ./Repeat_HMMs/SPRITE.hmm
+Sequence database:          Fasta_Files/ERR2090225.fasta
+Report scores above:        66.00
+Scan window size:           1000
+Do complementary strand:    yes
+Fancy alignment output:     no
+[Printing multiple non-overlapping hits per sequence]
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-To see more help on available options, do hmmsearch -h
-
+81.26  (bits) f:11857 t:11964 Target: NODE_1_length_153293_cov_37.130 
+111.52 (bits) f:16630 t:16734 Target: NODE_1_length_153293_cov_37.130 

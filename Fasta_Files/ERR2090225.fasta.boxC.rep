@@ -1,8 +1,52 @@
-Failed to parse command line: No such option "-t".
-Usage: hmmsearch [options] <hmmfile> <seqdb>
+hmmls - search long sequences for local matches to a hidden Markov model
+     version 1.8.4, July 1997
 
-where most common options are:
-  -h : show brief help on version and usage
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+HMM file:                   ./Repeat_HMMs/boxC.hmm
+Sequence database:          Fasta_Files/ERR2090225.fasta
+Report scores above:        28.00
+Scan window size:           1000
+Do complementary strand:    yes
+Fancy alignment output:     no
+[Printing multiple non-overlapping hits per sequence]
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-To see more help on available options, do hmmsearch -h
-
+90.51  (bits) f:   26 t:   75 Target: NODE_1_length_153293_cov_37.130 
+57.18  (bits) f:16836 t:16885 Target: NODE_1_length_153293_cov_37.130 
+88.29  (bits) f:23917 t:23966 Target: NODE_1_length_153293_cov_37.130 
+81.02  (bits) f:111089 t:111138 Target: NODE_1_length_153293_cov_37.130 
+88.15  (bits) f:117378 t:117427 Target: NODE_1_length_153293_cov_37.130 
+66.75  (bits) f:145509 t:145460 Target: NODE_1_length_153293_cov_37.130 
+90.36  (bits) f:105249 t:105200 Target: NODE_1_length_153293_cov_37.130 
+87.84  (bits) f:104263 t:104214 Target: NODE_1_length_153293_cov_37.130 
+82.59  (bits) f:11742 t:11693 Target: NODE_1_length_153293_cov_37.130 
+91.57  (bits) f:26516 t:26565 Target: NODE_2_length_144227_cov_31.696 
+77.36  (bits) f:98196 t:98245 Target: NODE_2_length_144227_cov_31.696 
+49.38  (bits) f:106469 t:106518 Target: NODE_2_length_144227_cov_31.696 
+88.99  (bits) f:130909 t:130860 Target: NODE_2_length_144227_cov_31.696 
+91.57  (bits) f:126125 t:126076 Target: NODE_2_length_144227_cov_31.696 
+88.13  (bits) f:117099 t:117050 Target: NODE_2_length_144227_cov_31.696 
+73.61  (bits) f:83800 t:83751 Target: NODE_2_length_144227_cov_31.696 
+84.66  (bits) f:72054 t:72005 Target: NODE_2_length_144227_cov_31.696 
+33.00  (bits) f:65882 t:65833 Target: NODE_2_length_144227_cov_31.696 
+87.08  (bits) f:20906 t:20857 Target: NODE_2_length_144227_cov_31.696 
+82.32  (bits) f:13420 t:13371 Target: NODE_2_length_144227_cov_31.696 
+83.60  (bits) f:36214 t:36263 Target: NODE_3_length_142892_cov_34.497 
+86.72  (bits) f:46387 t:46436 Target: NODE_3_length_142892_cov_34.497 
+77.90  (bits) f:58993 t:59042 Target: NODE_3_length_142892_cov_34.497 
+57.72  (bits) f:76029 t:76078 Target: NODE_3_length_142892_cov_34.497 
+88.99  (bits) f:111334 t:111383 Target: NODE_3_length_142892_cov_34.497 
+90.51  (bits) f:111895 t:111944 Target: NODE_3_length_142892_cov_34.497 
+86.61  (bits) f:139043 t:139092 Target: NODE_3_length_142892_cov_34.497 
+81.51  (bits) f:142698 t:142747 Target: NODE_3_length_142892_cov_34.497 
+78.69  (bits) f:134171 t:134122 Target: NODE_3_length_142892_cov_34.497 
+82.80  (bits) f:101561 t:101510 Target: NODE_3_length_142892_cov_34.497 
+32.71  (bits) f:97123 t:97074 Target: NODE_3_length_142892_cov_34.497 
+56.54  (bits) f:63114 t:63065 Target: NODE_3_length_142892_cov_34.497 
+81.90  (bits) f:43333 t:43382 Target: NODE_4_length_136829_cov_34.418 
+85.26  (bits) f:45525 t:45574 Target: NODE_4_length_136829_cov_34.418 
+85.68  (bits) f:50543 t:50592 Target: NODE_4_length_136829_cov_34.418 
+87.90  (bits) f:57661 t:57710 Target: NODE_4_length_136829_cov_34.418 
+85.19  (bits) f:72957 t:73006 Target: NODE_4_length_136829_cov_34.418 
+67.11  (bits) f:76668 t:76717 Target: NODE_4_length_136829_cov_34.418 
+81.58  (bits) f:122423 t:122472 Target: NODE_4_length_136829_cov_34.418 

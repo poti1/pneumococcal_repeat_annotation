@@ -12,7 +12,7 @@ use Bio::SeqI;
 ##############################################################################
 
 my $DEBUG = 0;
-my $n = 0;
+my $n     = 0;
 my %start;
 my %end;
 my %type;
@@ -184,8 +184,10 @@ foreach my $genome ( @ARGV ) {
                 @{ $BOX{$boxnum} } = "$repeatc";
                 if ( $boxstrand == -1 ) {
                     $boxstart = $start{$repeatc} + 1;
-                    foreach my $repeatb ( sort { $start{$a} <=> $start{$b} }
-                        keys %start )
+                    foreach my $repeatb (
+                        sort { $start{$a} <=> $start{$b} }
+                        keys %start
+                      )
                     {
                         if (
                             $type{$repeatb} =~ /boxB/
@@ -207,8 +209,10 @@ foreach my $genome ( @ARGV ) {
                 }
                 else {
                     $boxstart = $start{$repeatc} - 1;
-                    foreach my $repeatb ( sort { $start{$b} <=> $start{$a} }
-                        keys %start )
+                    foreach my $repeatb (
+                        sort { $start{$b} <=> $start{$a} }
+                        keys %start
+                      )
                     {
                         if (
                             $type{$repeatb} =~ /boxB/
@@ -468,10 +472,11 @@ sub run_sequences {
     foreach my $seq ( @ARGV ) {
         foreach my $repeat ( @repeats ) {
             print STDERR "Searching sequence $seq for repeat $repeat...";
-          # say "Running: $hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}";
-    
+
+# say "Running: $hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}";
+
             system(
-    "$hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}"
+"$hmmlsearch_command $cutoffs{$repeat} $hmms{$repeat} $seq > $seq.$input_files{$repeat}"
             );
             print STDERR "done\n";
         }
@@ -480,7 +485,7 @@ sub run_sequences {
 
 # parse information from HMM output
 sub build_hmm_structure {
-    my ($genome) = @_;
+    my ( $genome ) = @_;
 
     my $is_score = qr{ ^ \s* ( [\d.]+ ) }x;
     my $is_start = qr{ \b f \b \s* : \s* ( \d+ ) }x;
@@ -494,17 +499,17 @@ sub build_hmm_structure {
             chomp;
             say "\nline: [$_]" if $DEBUG;
 
-            my ($score) = /$is_score/;
+            my ( $score ) = /$is_score/;
             next if not $score;
-            
-            my ($start) = /$is_start/;
-            if(!$start){
+
+            my ( $start ) = /$is_start/;
+            if ( !$start ) {
                 print STDERR "Missing start value for: $genome line $.\n";
                 next;
             }
 
-            my ($end)   = /$is_end/;
-            if(!$end){
+            my ( $end ) = /$is_end/;
+            if ( !$end ) {
                 print STDERR "Missing end value for: $genome line $.\n";
                 next;
             }
@@ -514,18 +519,18 @@ sub build_hmm_structure {
                 $end{$r}    = $end;
                 $type{$r}   = $repeat;
                 $score{$r}  = $score;
-                $strand{$r} = ($end > $start) ? 1 : -1;
+                $strand{$r} = ( $end > $start ) ? 1 : -1;
 
-              # say dumper {
-              #     _00_r      => $r,
-              #     _21_start  => $start{$r},
-              #   # _22_startH => \%start,
-              #     _24_end    => $end{$r},
-              #   # _25_endH   => \%end,
-              #     _31_type   => $type{$r},
-              #     _32_score  => $score{$r},
-              #     _33_strand => $strand{$r},
-              # } if $DEBUG;
+                # say dumper {
+                #     _00_r      => $r,
+                #     _21_start  => $start{$r},
+                #   # _22_startH => \%start,
+                #     _24_end    => $end{$r},
+                #   # _25_endH   => \%end,
+                #     _31_type   => $type{$r},
+                #     _32_score  => $score{$r},
+                #     _33_strand => $strand{$r},
+                # } if $DEBUG;
             }
             $r++;
         }
