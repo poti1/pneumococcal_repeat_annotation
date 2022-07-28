@@ -2,7 +2,7 @@ hmmls - search long sequences for local matches to a hidden Markov model
      version 1.8.4, July 1997
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-HMM file:                   ./Repeat_HMMs/RUP.hmm
+HMM file:                   Repeat_HMMs/RUP.hmm
 Sequence database:          Fasta_Files/ERR2090225.fasta
 Report scores above:        47.00
 Scan window size:           1000
