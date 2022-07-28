@@ -18,3 +18,99 @@ Fancy alignment output:     no
 172.23 (bits) f:148063 t:148169 Target: NODE_1_length_153293_cov_37.130 
 157.77 (bits) f:128545 t:128438 Target: NODE_1_length_153293_cov_37.130 
 143.54 (bits) f:73377 t:73271 Target: NODE_1_length_153293_cov_37.130 
+125.88 (bits) f:22674 t:22582 Target: NODE_1_length_153293_cov_37.130 
+62.43  (bits) f: 6057 t: 6160 Target: NODE_2_length_144227_cov_31.696 
+91.48  (bits) f:13043 t:13144 Target: NODE_2_length_144227_cov_31.696 
+92.42  (bits) f:13184 t:13289 Target: NODE_2_length_144227_cov_31.696 
+166.38 (bits) f:13444 t:13550 Target: NODE_2_length_144227_cov_31.696 
+166.64 (bits) f:15103 t:15209 Target: NODE_2_length_144227_cov_31.696 
+175.14 (bits) f:48700 t:48806 Target: NODE_2_length_144227_cov_31.696 
+140.20 (bits) f:50516 t:50622 Target: NODE_2_length_144227_cov_31.696 
+69.73  (bits) f:72415 t:72309 Target: NODE_2_length_144227_cov_31.696 
+150.38 (bits) f:48963 t:48857 Target: NODE_2_length_144227_cov_31.696 
+156.96 (bits) f:19231 t:19125 Target: NODE_2_length_144227_cov_31.696 
+163.21 (bits) f:35692 t:35798 Target: NODE_3_length_142892_cov_34.497 
+109.86 (bits) f:38567 t:38673 Target: NODE_3_length_142892_cov_34.497 
+134.87 (bits) f:140416 t:140522 Target: NODE_3_length_142892_cov_34.497 
+171.37 (bits) f:128182 t:128076 Target: NODE_3_length_142892_cov_34.497 
+163.75 (bits) f:58677 t:58571 Target: NODE_3_length_142892_cov_34.497 
+95.45  (bits) f:11111 t:11217 Target: NODE_4_length_136829_cov_34.418 
+128.93 (bits) f:19251 t:19357 Target: NODE_4_length_136829_cov_34.418 
+144.25 (bits) f:46166 t:46272 Target: NODE_4_length_136829_cov_34.418 
+156.62 (bits) f:67434 t:67540 Target: NODE_4_length_136829_cov_34.418 
+122.33 (bits) f:119363 t:119469 Target: NODE_4_length_136829_cov_34.418 
+133.74 (bits) f:124477 t:124372 Target: NODE_4_length_136829_cov_34.418 
+155.22 (bits) f:121231 t:121125 Target: NODE_4_length_136829_cov_34.418 
+166.64 (bits) f:45195 t:45089 Target: NODE_4_length_136829_cov_34.418 
+134.68 (bits) f:24055 t:23949 Target: NODE_4_length_136829_cov_34.418 
+157.50 (bits) f:12207 t:12101 Target: NODE_4_length_136829_cov_34.418 
+113.10 (bits) f:35911 t:36017 Target: NODE_5_length_133757_cov_31.687 
+104.29 (bits) f:57816 t:57923 Target: NODE_5_length_133757_cov_31.687 
+153.25 (bits) f:46093 t:45987 Target: NODE_5_length_133757_cov_31.687 
+174.69 (bits) f: 4326 t: 4432 Target: NODE_6_length_127483_cov_35.079 
+161.42 (bits) f:61107 t:61213 Target: NODE_6_length_127483_cov_35.079 
+130.74 (bits) f:87020 t:87126 Target: NODE_6_length_127483_cov_35.079 
+140.00 (bits) f:88979 t:89085 Target: NODE_6_length_127483_cov_35.079 
+87.52  (bits) f:115040 t:114934 Target: NODE_6_length_127483_cov_35.079 
+118.18 (bits) f:43750 t:43644 Target: NODE_6_length_127483_cov_35.079 
+162.97 (bits) f:40424 t:40318 Target: NODE_6_length_127483_cov_35.079 
+123.02 (bits) f:34417 t:34311 Target: NODE_6_length_127483_cov_35.079 
+101.23 (bits) f: 7475 t: 7369 Target: NODE_6_length_127483_cov_35.079 
+156.50 (bits) f:   72 t:  179 Target: NODE_7_length_127245_cov_36.463 
+170.13 (bits) f:47219 t:47325 Target: NODE_7_length_127245_cov_36.463 
+170.38 (bits) f:102522 t:102628 Target: NODE_7_length_127245_cov_36.463 
+168.68 (bits) f:118829 t:118723 Target: NODE_7_length_127245_cov_36.463 
+145.19 (bits) f:118703 t:118597 Target: NODE_7_length_127245_cov_36.463 
+173.22 (bits) f:37160 t:37054 Target: NODE_7_length_127245_cov_36.463 
+175.37 (bits) f:76719 t:76825 Target: NODE_8_length_124036_cov_39.090 
+150.33 (bits) f:107164 t:107270 Target: NODE_9_length_123737_cov_40.522 
+144.62 (bits) f:48964 t:48858 Target: NODE_9_length_123737_cov_40.522 
+146.96 (bits) f:28200 t:28094 Target: NODE_9_length_123737_cov_40.522 
+161.87 (bits) f:15672 t:15778 Target: NODE_10_length_80212_cov_37.266 
+137.17 (bits) f:22587 t:22693 Target: NODE_10_length_80212_cov_37.266 
+130.44 (bits) f:79008 t:79114 Target: NODE_10_length_80212_cov_37.266 
+173.81 (bits) f:74998 t:74892 Target: NODE_10_length_80212_cov_37.266 
+161.64 (bits) f:68311 t:68205 Target: NODE_10_length_80212_cov_37.266 
+103.67 (bits) f:22590 t:22503 Target: NODE_10_length_80212_cov_37.266 
+167.50 (bits) f:24640 t:24746 Target: NODE_11_length_74266_cov_35.041 
+161.95 (bits) f:72638 t:72532 Target: NODE_11_length_74266_cov_35.041 
+172.90 (bits) f:35602 t:35496 Target: NODE_11_length_74266_cov_35.041 
+154.41 (bits) f: 8759 t: 8865 Target: NODE_12_length_71079_cov_31.345 
+66.38  (bits) f:12632 t:12736 Target: NODE_12_length_71079_cov_31.345 
+126.49 (bits) f:38834 t:38939 Target: NODE_12_length_71079_cov_31.345 
+103.52 (bits) f:56681 t:56576 Target: NODE_12_length_71079_cov_31.345 
+152.75 (bits) f:48124 t:48018 Target: NODE_12_length_71079_cov_31.345 
+165.71 (bits) f:14688 t:14582 Target: NODE_12_length_71079_cov_31.345 
+95.35  (bits) f:12715 t:12612 Target: NODE_12_length_71079_cov_31.345 
+84.72  (bits) f:14062 t:14166 Target: NODE_13_length_69788_cov_34.432 
+166.06 (bits) f:45079 t:44973 Target: NODE_13_length_69788_cov_34.432 
+129.46 (bits) f:12998 t:12892 Target: NODE_13_length_69788_cov_34.432 
+156.68 (bits) f: 4604 t: 4498 Target: NODE_13_length_69788_cov_34.432 
+170.75 (bits) f:22007 t:21901 Target: NODE_14_length_64836_cov_42.981 
+122.07 (bits) f: 8471 t: 8365 Target: NODE_15_length_61859_cov_44.533 
+135.04 (bits) f:21380 t:21472 Target: NODE_16_length_60334_cov_30.838 
+142.53 (bits) f:35664 t:35770 Target: NODE_16_length_60334_cov_30.838 
+133.77 (bits) f:60111 t:60217 Target: NODE_16_length_60334_cov_30.838 
+96.21  (bits) f:19988 t:20093 Target: NODE_17_length_48875_cov_38.004 
+156.15 (bits) f:40230 t:40336 Target: NODE_17_length_48875_cov_38.004 
+143.35 (bits) f:40349 t:40455 Target: NODE_17_length_48875_cov_38.004 
+97.10  (bits) f:45560 t:45666 Target: NODE_17_length_48875_cov_38.004 
+164.69 (bits) f:45922 t:46028 Target: NODE_17_length_48875_cov_38.004 
+110.07 (bits) f:40912 t:40807 Target: NODE_17_length_48875_cov_38.004 
+121.21 (bits) f:39056 t:39162 Target: NODE_18_length_44587_cov_29.634 
+160.47 (bits) f: 8927 t: 9033 Target: NODE_19_length_42403_cov_30.991 
+164.62 (bits) f:28112 t:28006 Target: NODE_19_length_42403_cov_30.991 
+136.54 (bits) f:23435 t:23329 Target: NODE_19_length_42403_cov_30.991 
+71.51  (bits) f:25585 t:25496 Target: NODE_20_length_40170_cov_30.805 
+141.77 (bits) f:21535 t:21429 Target: NODE_20_length_40170_cov_30.805 
+101.54 (bits) f:12511 t:12407 Target: NODE_20_length_40170_cov_30.805 
+165.89 (bits) f:10695 t:10589 Target: NODE_20_length_40170_cov_30.805 
+138.29 (bits) f:25425 t:25527 Target: NODE_22_length_25527_cov_36.346 
+107.29 (bits) f:12376 t:12269 Target: NODE_22_length_25527_cov_36.346 
+64.94  (bits) f:25084 t:25176 Target: NODE_23_length_25176_cov_33.705 
+103.37 (bits) f:17718 t:17823 Target: NODE_24_length_24568_cov_36.665 
+163.04 (bits) f:11905 t:12011 Target: NODE_27_length_23076_cov_34.941 
+164.50 (bits) f:22456 t:22562 Target: NODE_28_length_22712_cov_31.625 
+165.75 (bits) f: 1226 t: 1332 Target: NODE_30_length_13586_cov_34.689 
+141.26 (bits) f: 7626 t: 7732 Target: NODE_30_length_13586_cov_34.689 
+133.05 (bits) f: 2840 t: 2945 Target: NODE_34_length_3299_cov_37.0421 

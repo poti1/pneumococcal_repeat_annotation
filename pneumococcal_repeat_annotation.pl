@@ -7,6 +7,24 @@ use Bio::SeqIO;
 use Bio::SeqI;
 
 
+=head1 NAME
+
+    pneumococcal_repeat_annotation
+
+=head1 SYNOPSIS
+
+    perl pneumococcal_repeat_annotation.pl my.fasta
+
+    pneumococcal_repeat_annotation.pl Fasta_Files/ERR2090225.fasta
+
+=head1 DESCRIPTION
+
+Script to process repeat sequences to realign overlapping elements
+and identify disrupted repeat elements.
+
+=cut
+
+
 ##############################################################################
 #                                Main
 ##############################################################################
@@ -77,7 +95,7 @@ my %input_files = (
     "SPRITE" => "SPRITE.rep",
 );
 
-# run_sequences();
+run_sequences();
 
 foreach my $genome ( @ARGV ) {
 
@@ -460,7 +478,8 @@ foreach my $genome ( @ARGV ) {
 }
 
 close OUT;
-system( "rm first.out first.seq second.out second.seq *.rep;" );
+
+# cleanup();  # TODO: put cleanup back.
 print STDERR "Done\n";
 
 
@@ -613,3 +632,15 @@ sub hmm_results
     close HMM;
     return ( $hitstart, $hitend, $hitscore, $hitstrand );
 }
+
+sub cleanup {
+    my @files_to_remove =
+      glob "first.out first.seq second.out second.seq *.rep";
+
+    for ( @files_to_remove ) {
+        if ( -e ) {
+            unlink or warn "Cannot remove '$_': $!";
+        }
+    }
+}
+

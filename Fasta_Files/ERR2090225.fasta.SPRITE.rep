@@ -13,3 +13,30 @@ Fancy alignment output:     no
 
 81.26  (bits) f:11857 t:11964 Target: NODE_1_length_153293_cov_37.130 
 111.52 (bits) f:16630 t:16734 Target: NODE_1_length_153293_cov_37.130 
+138.14 (bits) f:63079 t:62970 Target: NODE_2_length_144227_cov_31.696 
+83.68  (bits) f:58493 t:58586 Target: NODE_3_length_142892_cov_34.497 
+77.65  (bits) f:108420 t:108522 Target: NODE_3_length_142892_cov_34.497 
+69.65  (bits) f:110492 t:110599 Target: NODE_3_length_142892_cov_34.497 
+96.40  (bits) f:97058 t:96950 Target: NODE_3_length_142892_cov_34.497 
+85.62  (bits) f:38767 t:38658 Target: NODE_3_length_142892_cov_34.497 
+93.08  (bits) f:70141 t:70244 Target: NODE_6_length_127483_cov_35.079 
+69.59  (bits) f:94167 t:94071 Target: NODE_6_length_127483_cov_35.079 
+126.98 (bits) f:30935 t:30826 Target: NODE_6_length_127483_cov_35.079 
+105.06 (bits) f:47121 t:47229 Target: NODE_7_length_127245_cov_36.463 
+125.45 (bits) f:34055 t:34162 Target: NODE_8_length_124036_cov_39.090 
+126.84 (bits) f:104928 t:104818 Target: NODE_8_length_124036_cov_39.090 
+136.12 (bits) f:93767 t:93660 Target: NODE_8_length_124036_cov_39.090 
+111.73 (bits) f:61993 t:61885 Target: NODE_9_length_123737_cov_40.522 
+90.46  (bits) f:58689 t:58609 Target: NODE_9_length_123737_cov_40.522 
+126.02 (bits) f:15835 t:15943 Target: NODE_10_length_80212_cov_37.266 
+70.27  (bits) f:19741 t:19639 Target: NODE_10_length_80212_cov_37.266 
+95.29  (bits) f:73102 t:73205 Target: NODE_11_length_74266_cov_35.041 
+130.03 (bits) f:28937 t:29043 Target: NODE_12_length_71079_cov_31.345 
+117.22 (bits) f:38942 t:39052 Target: NODE_12_length_71079_cov_31.345 
+91.47  (bits) f:47817 t:47722 Target: NODE_12_length_71079_cov_31.345 
+107.20 (bits) f:24998 t:24891 Target: NODE_12_length_71079_cov_31.345 
+80.12  (bits) f:23312 t:23417 Target: NODE_13_length_69788_cov_34.432 
+95.59  (bits) f:21572 t:21465 Target: NODE_15_length_61859_cov_44.533 
+111.54 (bits) f: 8809 t: 8915 Target: NODE_16_length_60334_cov_30.838 
+112.27 (bits) f:40195 t:40087 Target: NODE_17_length_48875_cov_38.004 
+88.22  (bits) f:44182 t:44078 Target: NODE_18_length_44587_cov_29.634 
